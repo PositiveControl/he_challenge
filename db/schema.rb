@@ -10,15 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_17_185051) do
+ActiveRecord::Schema.define(version: 2018_08_18_235445) do
 
-  create_table "searches", force: :cascade do |t|
-    t.string "term"
-    t.date "date"
-    t.integer "times_searched"
+  create_table "search_instances", force: :cascade do |t|
+    t.integer "search_id"
     t.string "result"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "searches", force: :cascade do |t|
+    t.string "term"
+    t.datetime "last_searched"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["term"], name: "index_searches_on_term"
   end
 
 end

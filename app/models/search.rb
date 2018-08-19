@@ -1,13 +1,19 @@
 class Search < ApplicationRecord
+  has_many :search_instances
   validates_presence_of :term
   validates_uniqueness_of :term
-  before_save :validate_ticker, :set_current_attributes
+  before_save :validate_query
+  after_save :create_search_instance
 
   attr_accessor :binance_coin_data
 
+  def times_searched
+    self.search_instances.count
+  end
+
   private
 
-  def validate_ticker
+  def validate_query
     @binance_coin_data = Binance.coin_price(self.term + "USDT")
 
     if binance_coin_data["msg"]
@@ -15,12 +21,10 @@ class Search < ApplicationRecord
     end
   end
 
-  def set_current_attributes
-    if self.times_searched.nil?
-      self.times_searched = 1
-
-    else
-      self.times_searched = self.times_searched + 1
-    end
+  def create_search_instance
+    SearchInstance.create(
+      :search_id => self.id,
+      :result => binance_coin_data["price"]
+    )
   end
 end

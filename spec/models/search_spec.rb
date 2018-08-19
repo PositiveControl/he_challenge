@@ -14,7 +14,6 @@ RSpec.describe Search, type: :model do
 
     it "does not create invalid searches" do
       new_search = Search.create(:term => "NOTREALCOIN")
-      binding.pry
       expect(new_search.id).to eq(nil)
     end
 
@@ -26,7 +25,7 @@ RSpec.describe Search, type: :model do
       expect(Search.all.count).to eq(5)
     end
 
-    it "sets times searched to 1 when created" do
+    it "creates a search_instance after save" do
       new_search = Search.create(:term => "LTC")
       expect(new_search.times_searched).to eq(1)
     end

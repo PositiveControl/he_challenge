@@ -1,4 +1,10 @@
-<h1><%= @query.term %></h1>
-<br/>
-<h3><%= @query.id %></h3>
-<h3><%= @query.times_searched %></h3>
+<% if @query_results %>
+  <h1>Ticker: <%= @query_results.term %></h1>
+  <h3>Total Searches: <%= @query_results.times_searched %></h3>
+  <h2>Last 5 Search Results for <%= @query_results.term %></h2>
+  <ol>
+    <% @query_results.search_instances.limit(5).each do |si| %>
+      <li><%= si.result %></li>
+    <% end %>
+  </ol>
+<% end %>

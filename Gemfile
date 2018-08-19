@@ -16,6 +16,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7'
+  gem 'rails-controller-testing'
   gem 'pry-rails'
 end
 

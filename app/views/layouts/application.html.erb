@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>HE Challenge</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>HE Challenge</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <div class="sidebar">
-      <h3>Crypto Search</h3>
-      <%= form_tag("/search", method: "get") do %>
-          <%= text_field_tag(:query) %>
-          <%= submit_tag("Search") %>
+<body>
+<div class="container">
+  <div class="sidebar">
+    <h3>Crypto Search</h3>
+    <%= form_tag("/search", method: "get") do %>
+        <%= text_field_tag(:query) %>
+        <%= submit_tag("Search") %>
+    <% end %>
+
+    <br/>
+
+    <table>
+      <caption>Last 10 Searches</caption>
+      <tr>
+        <th>Term</th>
+        <th>xSearched</th>
+      </tr>
+      <% @search_history.each do |search| %>
+          <tr>
+            <td><a href="/search/<%= search.id %>"><%= search.term %></a></td>
+            <td><%= search.times_searched %></td>
+          </tr>
       <% end %>
+    </table>
+  </div>
 
-      <br/>
-
-      <table>
-        <caption>Last 10 Searches</caption>
-        <tr>
-          <th>Term</th>
-          <th>xSearched</th>
-        </tr>
-          <% @search_history.each do |search| %>
-            <tr>
-              <td><a href="/search/<%= search.id %>"><%= search.term %></a></td>
-              <td><%= search.times_searched %></td>
-            </tr>
-          <% end %>
-      </table>
-    </div>
-
-    <div class="main">
-      <%= yield %>
-    </div>
-  </body>
+  <div class="main">
+    <%= yield %>
+  </div>
+</div>
+</body>
 </html>
