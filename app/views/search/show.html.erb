@@ -1,0 +1,12 @@
+<% if @search.is_a?(Hash) %>
+    <h2><%= @search[:error] %></h2>
+<% elsif @search %>
+    <h1>Ticker: <%= @search.term %></h1>
+    <h3>Total Searches: <%= @search.times_searched %></h3>
+    <h2>Last 5 Search Results for <%= @search.term %></h2>
+    <ol>
+      <% @search.search_instances.limit(5).each do |si| %>
+          <li><%= si.result %></li>
+      <% end %>
+    </ol>
+<% end %>

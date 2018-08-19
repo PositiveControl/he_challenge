@@ -1,10 +1,12 @@
-<% if @query_results %>
-  <h1>Ticker: <%= @query_results.term %></h1>
-  <h3>Total Searches: <%= @query_results.times_searched %></h3>
-  <h2>Last 5 Search Results for <%= @query_results.term %></h2>
-  <ol>
-    <% @query_results.search_instances.limit(5).each do |si| %>
-      <li><%= si.result %></li>
-    <% end %>
-  </ol>
+<% if @query_results.is_a?(Hash) %>
+  <h2><%= @query_results[:error] %></h2>
+<% elsif @query_results %>
+    <h1>Ticker: <%= @query_results.term %></h1>
+    <h3>Total Searches: <%= @query_results.times_searched %></h3>
+    <h2>Last 5 Search Results for <%= @query_results.term %></h2>
+    <ol>
+      <% @query_results.search_instances.limit(5).each do |si| %>
+          <li><%= si.result %></li>
+      <% end %>
+    </ol>
 <% end %>
