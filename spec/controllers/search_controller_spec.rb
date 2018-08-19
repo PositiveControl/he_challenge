@@ -35,5 +35,13 @@ RSpec.describe SearchController, type: :controller do
         expect(assigns(:search)[:error]).to be_present
       end
     end
+
+    it "show creates a new search_instance" do
+      search = Search.create(:term => "XRP")
+
+      get :show, :params => { :id => search.id }
+
+      expect(assigns(:search).times_searched).to eq(2)
+    end
   end
 end

@@ -7,6 +7,7 @@
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 
 <body>
@@ -15,24 +16,30 @@
     <h3>Crypto Search</h3>
     <%= form_tag("/search", method: "get") do %>
         <%= text_field_tag(:query) %>
+        <br>
+        <br>
         <%= submit_tag("Search") %>
     <% end %>
 
     <br/>
+    <div class="sort-container">
+      <%= button_to "ABC", { :action => "index" }, :params => { :sort => "term ASC" }, :method => :get, :class => "sort" %>
+      <%= button_to "Popular", { :action => "index" }, :params => { :sort => "popularity ASC" }, :method => :get, :class => "sort" %>
+      <%= button_to "Recent", { :action => "index" }, :params => { :sort => "last_searched DESC" }, :method => :get, :class => "sort" %>
+    </div>
 
-    <table>
-      <caption>Last 10 Searches</caption>
-      <tr>
-        <th>Term</th>
-        <th>xSearched</th>
-      </tr>
-      <% @search_history.each do |search| %>
-          <tr>
-            <td><a href="/search/<%= search.id %>"><%= search.term %></a></td>
-            <td><%= search.times_searched %></td>
-          </tr>
-      <% end %>
-    </table>
+    <div class="search-history">
+      <ul class="list-group">
+        <% @search_history.each do |search| %>
+            <li>
+              <h4><a href="/search/<%= search.id %>"><%= search.term %></a></h4>
+              Times Searched: <%= search.times_searched %>
+              <br>
+              <small>Last Search: <%= search.last_searched.strftime('%I:%M%p GMT %m/%d') %></small>
+            </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 
   <div class="main">

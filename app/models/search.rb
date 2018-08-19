@@ -11,6 +11,13 @@ class Search < ApplicationRecord
     self.search_instances.count
   end
 
+  def last_search
+    self
+      .search_instances
+      .order(:created_at)
+      .first
+  end
+
   private
 
   def validate_query

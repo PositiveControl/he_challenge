@@ -2,11 +2,15 @@
     <h2><%= @search[:error] %></h2>
 <% elsif @search %>
     <h1>Ticker: <%= @search.term %></h1>
+    <br>
+    <h3>Current Price: $<%= @search.last_search.result %></h3>
     <h3>Total Searches: <%= @search.times_searched %></h3>
-    <h2>Last 5 Search Results for <%= @search.term %></h2>
-    <ol>
-      <% @search.search_instances.limit(5).each do |si| %>
-          <li><%= si.result %></li>
+    <br>
+    <br>
+    <h2>Search History for <%= @search.term %></h2>
+    <ol class="list-group list-group-flush">
+      <% @search.search_instances.each do |si| %>
+          <li class="list-group-item">$<%= si.result %>  @ <%= si.created_at.strftime('%I:%M %p GMT on %m/%d/%Y') %></li>
       <% end %>
     </ol>
 <% end %>
