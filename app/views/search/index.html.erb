@@ -16,4 +16,12 @@
           <li class="list-group-item">$<%= si.result %>  @ <%= si.created_at.strftime('%I:%M %p GMT on %m/%d/%Y') %></li>
       <% end %>
     </ol>
+<% else %>
+    <h1>Welcome to the <small>mini</small> Crypto Searcher!</h1>
+    <h5>Some things you should know before clicking around...</h5>
+    <ul>
+      <li>We're connecting with Binance.com's ticker price API</li>
+      <li>We can only retrieve coins for which Binance has a USDT pair</li>
+      <li>You must search via ticker symbol; example: Ethereum = ETH</li>
+    </ul>
 <% end %>
