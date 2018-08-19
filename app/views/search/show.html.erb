@@ -1,16 +1,19 @@
 <% if @search.is_a?(Hash) %>
     <h2><%= @search[:error] %></h2>
 <% elsif @search %>
-    <h1>Ticker: <%= @search.term %></h1>
-    <br>
-    <h3>Current Price: $<%= @search.last_search.result %></h3>
-    <h3>Total Searches: <%= @search.times_searched %></h3>
-    <br>
+    <div class="card">
+      <h1 class="card-header">Ticker: <%= @search.term %></h1>
+      <div class="card-body">
+        <p class="card-text">Current Price: $<%= @search.last_search.result %></p>
+        <p class="card-text">Total Searches: <%= @search.times_searched %></p>
+      </div>
+    </div>
     <br>
     <h2>Search History for <%= @search.term %></h2>
     <ol class="list-group list-group-flush">
       <% @search.search_instances.each do |si| %>
-          <li class="list-group-item">$<%= si.result %>  @ <%= si.created_at.strftime('%I:%M %p GMT on %m/%d/%Y') %></li>
+          <li class="list-group-item">$<%= si.result %>
+            @ <%= si.created_at.strftime('%I:%M %p GMT on %m/%d/%Y') %></li>
       <% end %>
     </ol>
 <% end %>
