@@ -1,0 +1,19 @@
+<% if @query_results.is_a?(Hash) %>
+  <h2><%= @query_results[:error] %></h2>
+<% elsif @query_results %>
+    <div class="card">
+      <h1 class="card-header">Ticker: <%= @query_results.term %></h1>
+      <div class="card-body">
+        <p class="card-text">Current Price: $<%= @query_results.last_search.result %></p>
+        <p class="card-text">Total Searches: <%= @query_results.times_searched %></p>
+      </div>
+    </div>
+      <br>
+    <br>
+    <h2>Search History for <%= @query_results.term %></h2>
+    <ol class="list-group list-group-flush">
+      <% @query_results.search_instances.each do |si| %>
+          <li class="list-group-item">$<%= si.result %>  @ <%= si.created_at.strftime('%I:%M %p GMT on %m/%d/%Y') %></li>
+      <% end %>
+    </ol>
+<% end %>
