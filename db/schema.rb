@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2018_08_18_235445) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "search_instances", force: :cascade do |t|
     t.integer "search_id"
     t.string "result"
@@ -27,4 +30,5 @@ ActiveRecord::Schema.define(version: 2018_08_18_235445) do
     t.index ["term"], name: "index_searches_on_term"
   end
 
+  add_foreign_key "search_instances", "searches"
 end
