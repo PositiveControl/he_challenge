@@ -1,5 +1,9 @@
 <% if @search.is_a?(Hash) %>
-    <h2><%= @search[:error] %></h2>
+    <div class="alert alert-secondary">
+      <h2>whoops!</h2>
+      <hr>
+      <p><%= @search[:error] %></p>
+    </div>
 <% elsif @search %>
     <div class="card">
       <h1 class="card-header">Ticker: <%= @search.term %></h1>
@@ -8,7 +12,7 @@
         <p class="card-text">Total Searches: <%= @search.times_searched %></p>
       </div>
     </div>
-    <br>
+    <hr>
     <h2>Search History for <%= @search.term %></h2>
     <ol class="list-group list-group-flush">
       <% @search.search_instances.each do |si| %>

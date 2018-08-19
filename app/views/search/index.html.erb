@@ -1,5 +1,9 @@
 <% if @query_results.is_a?(Hash) %>
-  <h2><%= @query_results[:error] %></h2>
+    <div class="alert alert-secondary">
+      <h2>whoops!</h2>
+      <hr>
+      <p><%= @query_results[:error] %></p>
+    </div>
 <% elsif @query_results %>
     <div class="card">
       <h1 class="card-header">Ticker: <%= @query_results.term %></h1>
@@ -8,8 +12,7 @@
         <p class="card-text">Total Searches: <%= @query_results.times_searched %></p>
       </div>
     </div>
-      <br>
-    <br>
+    <hr>
     <h2>Search History for <%= @query_results.term %></h2>
     <ol class="list-group list-group-flush">
       <% @query_results.search_instances.each do |si| %>
@@ -19,6 +22,7 @@
 <% else %>
     <h1>Welcome to the <small>mini</small> Crypto Searcher!</h1>
     <h5>Some things you should know before clicking around...</h5>
+    <hr>
     <ul>
       <li>We're connecting with Binance.com's ticker price API</li>
       <li>We can only retrieve coins for which Binance has a USDT pair</li>
